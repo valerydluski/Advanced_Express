@@ -2,3 +2,4 @@
 npx mocha test/db/connect.js
 npx mocha test/server/models/UserModel.test.js
 npx mocha test/server/models/UserModel.test.password.js
+npx mocha test/server/routes/users/index.registration.test.js
