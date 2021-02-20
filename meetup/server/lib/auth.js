@@ -20,6 +20,19 @@ passport.use(
   })
 );
 
+passport.serializeUser((user, done) => {
+  return done(null, user._id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await UserModel.findById(id).exec();
+    return done(null, user);
+  } catch (error) {
+    return done(error);
+  }
+});
+
 module.exports = {
   initialize: passport.initialize(),
   session: passport.session(),
