@@ -71,13 +71,15 @@ module.exports.after = async () => {
 };
 
 // Local helper function that creates a user
-module.exports.createUser = async (agent, user) => agent
-  .post('/users/registration')
-  .set('content-type', 'application/x-www-form-urlencoded')
-  .send(user);
+module.exports.createUser = async (agent, user) =>
+  agent
+    .post('/users/registration')
+    .set('content-type', 'application/x-www-form-urlencoded')
+    .send(user);
 
 // Local helper function that logs a user in
-module.exports.loginUser = async (agent, email, password) => agent
-  .post('/users/login')
-  .set('content-type', 'application/x-www-form-urlencoded')
-  .send({ email, password });
+module.exports.loginUser = async (agent, email, password) =>
+  agent
+    .post('/users/login')
+    .set('content-type', 'application/x-www-form-urlencoded')
+    .send({ email, password });

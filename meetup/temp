@@ -1,0 +1,3 @@
+
+npx mocha test/db/connect.js
+npx mocha test/server/models/UserModel.test.js
