@@ -43,7 +43,7 @@ module.exports = (params) => {
           email: req.body.email,
           password: req.body.password,
         });
-        if (req.file && req.file.storedFilename) {
+        if (req.file?.storedFilename) {
           user.avatar = req.file.storedFilename;
         }
         const savedUser = await user.save();
@@ -51,7 +51,7 @@ module.exports = (params) => {
         if (savedUser) return res.redirect('/users/registration?success=true');
         return next(new Error('Failed to save user for unknown reasons'));
       } catch (err) {
-        if (req.file && req.file.storedFilename) {
+        if (req.file?.storedFilename) {
           await avatars.delete(req.file.storedFilename);
         }
         return next(err);
@@ -67,6 +67,17 @@ module.exports = (params) => {
     },
     (req, res) => res.render('users/account', { user: req.user })
   );
+
+  router.get('/avatar/:filename', (req, res, next) => {
+    res.type('png');
+    return res.sendFile(avatars.filepath(req.params.filename));
+  });
+
+  router.get('/avatartn/:filename', async (req, res) => {
+    res.type('png');
+    const tn = await avatars.thumbnail(req.params.filename);
+    return res.end(tn, 'binary');
+  });
 
   return router;
 };
